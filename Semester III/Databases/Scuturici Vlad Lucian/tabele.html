@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tabele</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+.button {
+        background-color: blue;
+        color: white;
+        font-size: 20px;
+        padding: 15px 30px;
+        border-radius: 50px;
+        border: 2px solid white;
+        cursor: pointer;
+        text-align: center;
+        box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+        transition: all 0.2s ease-in-out;
+    }
+    .button:hover {
+        background-color: darkblue;
+        border-color: darkblue;
+        transform: translateY(-3px);
+        box-shadow: 0px 8px 20px rgba(0,0,0,0.5);
+    }
+    .button:active {
+        transform: translateY(2px);
+        box-shadow: 0px 3px 10px rgba(0,0,0,0.3);
+    }
+
+    p {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 30px;
+    text-shadow: 1px 1px rgb(187, 186, 186);
+    letter-spacing: 2px;
+}
+body {
+    background-color: whitesmoke;
+    background: linear-gradient(to left, #0df6ea, #2798ac);
+}
+table {
+    text-align:center;
+    margin: auto;
+    border: solid 3px;
+    border-color: black;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #333;
+}
+th {
+    background-color: #f44336;
+    color: black;
+    border: 3px;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 20px;
+}
+td{
+    border: solid 1px;
+    border-color: black;
+    width: auto;
+    margin: 5px;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+tr{
+    text-align: center;
+    margin: 5px;
+    border-radius: 10px;
+}
+</style> 
+    </head>
+    <body>
+        <div>
+            <br><br>
+            <center><p>Selectati tabelul dorit</p></center>
+            <br><br>
+            <center><a href="chestionar.php" class="button">Chestionar</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="intrebare.php" class="button">Intrebare</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="intrebari_chestionar.php" class="button">Intrebari_chestionar</a></center>
+            <br><br>
+            
+            <center><a href="raspuns.php" class="button">Raspuns</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="raspuns_test.php" class="button">Raspuns_test</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="test.php" class="button">Test</a></center>
+        </div>
+    </body>
+</html>

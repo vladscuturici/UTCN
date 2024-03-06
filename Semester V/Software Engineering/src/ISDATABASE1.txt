@@ -1,0 +1,193 @@
+///pentru imagini in calea C:\ProgramData\MySQL\MySQL Server 8.0\Uploads    puneti pozele pe care le atasez 
+
+
+create schema databaseforis;
+
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(65) UNIQUE NOT NULL,
+    username VARCHAR(55) UNIQUE NOT NULL,
+    password VARCHAR(55) NOT NULL
+);
+
+CREATE TABLE pets (
+    pet_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    name VARCHAR(55),
+    description VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+
+CREATE TABLE posts (
+    post_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    pet_id INT,
+    description VARCHAR(255),
+    photo_id INT,
+    photo_url BLOB,
+    like_count INT,
+    post_time TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users (user_id),
+    FOREIGN KEY (pet_id) REFERENCES pets (pet_id)
+);
+
+
+INSERT INTO users (email, username, password)
+VALUE ('john.doe@yahoo.com', 'doejohnny', '12345!');
+INSERT INTO users (email, username, password)
+VALUE ('sarah.smith@yahoo.com' ,'sassy_sarahh', '12345!' );
+INSERT INTO users (email, username, password)
+VALUE ('mike.jones@yahoo.com','mikejonesy', '12345!');
+INSERT INTO users (email, username, password)
+VALUE ('emily.wilson@yahoo.com' ,'em_wilson','12345!');
+INSERT INTO users (email, username, password)
+VALUE ('david.brown@yahoo.com','daviebrownie', '12345!' );
+INSERT INTO users (email, username, password)
+VALUE ('lisa.anderson@yahoo.com','lisanderson', '12345!');
+INSERT INTO users (email, username, password)
+VALUE ('jason.wright@yahoo.com','jaywrighty', '12345!');
+INSERT INTO users (email, username, password)
+VALUE ('laura.johnson@yahoo.com','laurajayjay','12345!' );
+INSERT INTO users (email, username, password)
+VALUE ( 'kevin.evans@yahoo.com', 'kevinevans1', '12345!');
+INSERT INTO users (email, username, password)
+VALUE ( 'anna.martin@yahoo.com', 'anna_martin_art', '12345!' );
+ 
+
+
+INSERT INTO pets (user_id, name, description)
+VALUE (1,'Max','Energetic and loyal, always ready for an adventure or a good game of fetch. 🐾');
+INSERT INTO pets (user_id, name, description)
+VALUE (1,'Bella' ,	'Graceful and friendly, loves belly rubs and long walks in the park. 🐶');
+INSERT INTO pets (user_id, name, description)
+VALUE (10,'Peanut',	'Sophisticated and cuddly, can often be found lounging in sunspots or exploring new corners. 😺	');
+INSERT INTO pets (user_id, name, description)
+VALUE (3,'Oscar' ,	'Colorful chatterbox, always showing off a diverse repertoire of tunes and phrases. 🦜');
+INSERT INTO pets (user_id, name, description)
+VALUE (5,'Bubbles'	,'Curious and affectionate, enjoys exploring and munching on fresh greens. 🐇');
+INSERT INTO pets (user_id, name, description)
+VALUE (6,'Felix'	,'Mischievous and independent, loves perching up high and indulging in gourmet cat treats. 😼');
+INSERT INTO pets (user_id, name, description)
+VALUE (9,'Cinnamon',	'Sweet and gentle, often found lounging and munching on crisp carrots. 🥕');
+INSERT INTO pets (user_id, name, description)
+VALUE (2,'Toffee','Energetic and playful, enjoys spinning on the wheel and hoarding tasty treats in a cozy burrow. 🐹');
+INSERT INTO pets (user_id, name, description)
+VALUE (7,'Ginger','Majestic and spirited, loves galloping freely in open pastures under the sun. 🐴');
+INSERT INTO pets (user_id, name, description)
+VALUE (4,'Rocco'	,'Charming and protective, always up for a snuggle or a game of tug-of-war.' );
+
+
+INSERT INTO posts (user_id,pet_id, description, photo_id,photo_url,like_count,post_time) 
+VALUE (1,1,'Took my dog to a training session today, and he aced it! So proud of his progress and all the hard work he is putting in. 🌟🐕',null,null,4,'2023-10-20 08:45:08');
+
+INSERT INTO posts (user_id,pet_id, description,photo_id, photo_url,like_count,post_time) 
+VALUE (1,2,"Just realized my dog's toy collection has officially taken over the living room. It's a small sacrifice for his endless joy, right? 🐶",1,load_file('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\post11.jpg'),7,'2023-10-01 18:15:08');
+
+INSERT INTO posts (user_id,pet_id, description, photo_id,photo_url,like_count,post_time) 
+VALUE (10,3,'Ever feel like your pet understands every word you say? My cat just gave me that I know exactly what you mean look. 😸',null,null,3,'2023-10-19 23:33:33');
+
+
+INSERT INTO posts (user_id,pet_id, description, photo_id,photo_url,like_count,post_time) 
+VALUE (3,4,'Does anyone else have a parrot that insists on joining every Zoom meeting? I have officially got the most talkative coworker! 🦜',2,load_file('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\post12.jpg'),4,'2023-05-20 13:11:09');
+
+INSERT INTO posts (user_id,pet_id, description, photo_id,photo_url,like_count,post_time) 
+VALUE (5,5,'I am convinced my rabbit has a secret stash of snacks somewhere. His perpetually full cheeks are a dead giveaway! 🥕🐇 ',3,load_file('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\post13.jpg'),10,'2023-12-02 13:11:09');
+
+
+INSERT INTO posts (user_id,pet_id, description, photo_id,photo_url,like_count,post_time) 
+VALUE (6,6,'Realized my cat has claimed my laundry basket as his new favorite bed. Laundry day just got a lot more complicated! 🐾',null,null,4,'2023-05-05 15:05:08');
+
+
+INSERT INTO posts (user_id,pet_id, description, photo_id,photo_url,like_count,post_time) 
+VALUE (9,7,' think my rabbit believes he is a gardener. He is constantly inspecting my houseplants like a pro. 🌱🐰',null,null,4,'2023-10-05 21:15:08');
+
+
+
+CREATE TABLE friends (
+    friendship_id INT PRIMARY KEY,
+    user1_id INT,
+    user2_id INT
+);
+
+
+INSERT INTO friends (friendship_id, user1_id, user2_id) VALUES
+    (1, 10, 3),
+    (2, 9, 5),
+    (3, 2, 6),
+    (4, 3, 2),
+    (5, 3, 4),
+    (6, 4, 1),
+    (7, 5, 6),
+    (8, 6, 3),
+    (9, 7, 9),
+    (10, 7, 8),
+    (11, 7, 6),
+    (12, 10, 1);
+
+
+CREATE TABLE comments (
+    comment_id INT PRIMARY KEY,
+    post_id INT,
+    user_id INT,
+    comment_text VARCHAR(64),
+    comment_post_time TIMESTAMP
+);
+
+INSERT INTO comments (comment_id, post_id, user_id, comment_text, comment_post_time)
+VALUES
+    (1, 1, 2, 'Congratulations to your clever pup! Keep up the great work!🌟', '2023-10-22'),
+    (2, 6, 2, "Haha, It's officially his throne now!", '2023-05-07'),
+    (3, 2, 5, 'Looks like a fun zone!', '2023-11-19'),
+    (4, 3, 4, "Absolutely! It's like they can read our minds sometimes.😻", '2024-01-02'),
+    (5, 4, 3, 'Chatty coworker alert!🦜💬', '2023-06-02');
+
+CREATE TABLE messages (
+    message_id INT PRIMARY KEY,
+    sender_id INT,
+    receiver_id INT,
+    message_text VARCHAR(100),
+    time timestamp
+);
+
+
+
+INSERT INTO messages (message_id, sender_id, receiver_id, message_text, time)
+VALUES
+    (1, 10, 3, 'Peanut just did the cutest thing today. He tried to chase his own tail and got dizzy!', '2023-10-19'),
+    (2, 3, 10, "Haha, that's adorable! Oscar learned a new phrase today - 'Oscar wants a cracker!'🦜", '2023-10-20'),
+    (3, 10, 3, "That's impressive! Our pets are quite the characters.😂", '2023-10-20'),
+    (4, 5, 9, "Bubbles is shedding like crazy. Any tips for dealing with bunny fur everywhere?🐇🙈", '2023-12-06'),
+    (5, 9, 5, "I feel you! Cinnamon's fur is all over my couch. Brushing and vacuuming regularly helps a lot.🧹", '2023-12-06'),
+    (6, 5, 9, "Thanks, I'll try that. Can't stay mad at that face though!😍", '2023-12-06'),
+    (7, 9, 5, 'Haha, I know what you mean. Those fluffy bunnies have our hearts.🥕❤️', '2023-12-07'),
+    (8, 2, 6, 'Toffee just ran on his wheel like crazy.🐹', '2024-01-05'),
+    (9, 6, 2, 'Felix is giving me "the look" for more treats. Cats and hamsters, the treat enthusiasts.😂', '2024-01-05'),
+    (10, 2, 6, "Haha, tell me about it! Can't resist those little faces.🐱🐹", '2024-01-05'),
+    (11, 6, 2, "Absolutely, they've mastered the art of getting what they want!🍪😸", '2024-01-05');
+
+CREATE TABLE stories (
+	story_id int NOT NULL,
+	user_id int DEFAULT NULL,
+	post_time timestamp NULL DEFAULT NULL,
+	storyDescription text,
+PRIMARY KEY(story_id))
+
+
+
+CREATE TABLE databaseforis.notifications (
+  notification_id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
+  user_id INT DEFAULT NULL,
+  text VARCHAR(150) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  is_read TINYINT(1) DEFAULT '0'
+);
+
+
+INSERT INTO friends(user1_id, user2_id)
+VALUES (1, 4);
+INSERT INTO friends (user1_id, user2_id)
+VALUES (1, 10);
+
+
+
+

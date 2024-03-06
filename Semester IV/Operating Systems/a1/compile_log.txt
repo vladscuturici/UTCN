@@ -1,0 +1,8 @@
+a1.c: In function 'display_files_rec':
+a1.c:50:16: warning: implicit declaration of function 'lstat' [-Wimplicit-function-declaration]
+             if(lstat(fullPath, &statbuf) == 0) {
+                ^~~~~
+C:\Users\User\AppData\Local\Temp\ccCgn2gX.o:a1.c:(.text+0x1c3): undefined reference to `lstat'
+C:\Users\User\AppData\Local\Temp\ccCgn2gX.o:a1.c:(.text+0x45c): undefined reference to `lstat'
+C:\Users\User\AppData\Local\Temp\ccCgn2gX.o:a1.c:(.text+0xf9e): undefined reference to `lstat'
+collect2.exe: error: ld returned 1 exit status
