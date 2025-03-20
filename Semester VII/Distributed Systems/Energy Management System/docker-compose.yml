@@ -1,0 +1,197 @@
+version: "3.8"
+
+networks:
+  shared-network:
+    driver: bridge
+
+services:
+  reverse-proxy:
+    image: traefik:v3.2
+    container_name: traefik
+    command:
+      - --api.insecure=true
+      - --providers.docker
+      - --accesslog=true
+      - --accesslog.filepath=/var/log/traefik/access.log
+      - --log.level=DEBUG
+      - --entrypoints.web.address=:80
+    ports:
+      - "80:80"
+      - "8080:8080" # Traefik dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - traefik_logs:/var/log/traefik
+    networks:
+      - shared-network
+    labels:
+      - "traefik.http.services.my-service.loadbalancer.server.http2=true"
+
+  user-db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: 'users'
+      POSTGRES_PASSWORD: 'vlad'
+    ports:
+      - "5433:5432"
+    volumes:
+      - my-db-volume-1:/var/lib/postgresql/data
+    networks:
+      - shared-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  device-db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: 'devices'
+      POSTGRES_PASSWORD: 'vlad'
+    ports:
+      - "5434:5432"
+    volumes:
+      - my-db-volume-2:/var/lib/postgresql/data
+    networks:
+      - shared-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  monitoring-db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: 'monitoring'
+      POSTGRES_PASSWORD: 'vlad'
+    ports:
+      - "5435:5432"
+    volumes:
+      - my-db-volume-3:/var/lib/postgresql/data
+    networks:
+      - shared-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  user-microservice-spring:
+    restart: always
+    build:
+      context: ./user_microservice
+      dockerfile: Dockerfile
+    environment:
+      - DB_IP=user-db
+      - DB_PORT=5432
+      - DB_DBNAME=users
+      - DB_USER=postgres
+      - DB_PASSWORD=vlad
+    depends_on:
+      user-db:
+        condition: service_healthy
+    deploy:
+      replicas: 2
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.user-microservice.rule=Host(`user.localhost`)"
+      - "traefik.http.services.user-microservice.loadbalancer.server.port=8080"
+    networks:
+      - shared-network
+
+  device-microservice-spring:
+    restart: always
+    build:
+      context: ./device-microservice
+      dockerfile: ./Dockerfile
+    environment:
+      - DB_IP=device-db
+      - DB_PORT=5432
+      - DB_DBNAME=devices
+      - DB_USER=postgres
+      - DB_PASSWORD=vlad
+    depends_on:
+      device-db:
+        condition: service_healthy
+    deploy:
+      replicas: 2
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.device-microservice.rule=Host(`device.localhost`)"
+      - "traefik.http.services.device-microservice.loadbalancer.server.port=8081"
+    networks:
+      - shared-network
+
+  monitoring-microservice-spring:
+    restart: always
+    build:
+      context: ./monitoring-microservice
+      dockerfile: ./Dockerfile
+    environment:
+      - DB_IP=monitoring-db
+      - DB_PORT=5432
+      - DB_DBNAME=monitoring
+      - DB_USER=postgres
+      - DB_PASSWORD=vlad
+    depends_on:
+      monitoring-db:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.monitoring-microservice.rule=Host(`monitoring.localhost`)"
+      - "traefik.http.services.monitoring-microservice.loadbalancer.server.port=8082"
+    networks:
+      - shared-network
+
+  chat-microservice-spring:
+    restart: always
+    build:
+      context: ./chat-microservice
+      dockerfile: ./Dockerfile
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.chat-microservice.rule=Host(`chat.localhost`)"
+      - "traefik.http.services.chat-microservice.loadbalancer.server.port=8083"
+    networks:
+      - shared-network
+
+  frontend:
+    build:
+      context: ./frontend_app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_USER_SERVICE_URL=http://user.localhost
+      - REACT_APP_DEVICE_SERVICE_URL=http://device.localhost
+      - REACT_APP_MONITORING_SERVICE_URL=http://monitoring.localhost
+      - REACT_APP_CHAT_SERVICE_URL=http://chat.localhost
+    networks:
+      - shared-network
+    depends_on:
+      - user-microservice-spring
+      - device-microservice-spring
+
+  rabbitmq:
+    image: rabbitmq:4.0.3-management
+    container_name: 'rabbitmq'
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/
+      - rabbitmq_logs:/var/log/rabbitmq
+    networks:
+      - shared-network
+
+volumes:
+  my-db-volume-1:
+  my-db-volume-2:
+  my-db-volume-3:
+  rabbitmq_data:
+  rabbitmq_logs:
+  traefik_logs:

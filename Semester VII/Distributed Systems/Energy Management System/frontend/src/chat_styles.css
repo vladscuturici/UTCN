@@ -1,0 +1,118 @@
+.chat-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #00bcd4, #8e2de2);
+  }
+  
+  .chat-box {
+    padding: 20px;
+    height: 400px;
+    overflow-y: auto;
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .chat-box .message {
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    max-width: 80%;
+    word-wrap: break-word;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chat-box .message.sent {
+    background-color: #d1f7c4;
+    align-self: flex-end;
+    margin-left: 20%;
+  }
+  
+  .chat-box .message.received {
+    background-color: #e3e3e3;
+    align-self: flex-start;
+    margin-right: 20%;
+  }
+  
+  .chat-box .message strong {
+    color: #5f6368;
+  }
+  
+  .chat-box .message small {
+    color: #999;
+    font-size: 12px;
+  }
+  
+  .typing-indicator {
+    color: #888;
+    font-style: italic;
+    font-size: 13px;
+  }
+  
+  .input-container {
+    display: flex;
+    padding: 12px 20px;
+    align-items: center;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+  }
+  
+  .message-input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+    margin-right: 12px;
+    outline: none;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+  }
+  
+  .message-input:focus {
+    border-color: #00bcd4;
+    background-color: #fff;
+  }
+  
+  .send-button {
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .send-button:hover {
+    background-color: #008c99;
+    transform: translateY(-2px);
+  }
+  
+  .send-button:active {
+    transform: translateY(2px);
+  }
+  
+  #chat-box::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  #chat-box::-webkit-scrollbar-thumb {
+    background-color: #00bcd4;
+    border-radius: 4px;
+  }
+  
+  #chat-box::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+  

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classy Login Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your username">
+    </div>
+    <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password">
+    </div>
+    <button class="login-btn" onclick="validateLogin()">Login</button>
+    <div id="error-message" class="message">Invalid username or password</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

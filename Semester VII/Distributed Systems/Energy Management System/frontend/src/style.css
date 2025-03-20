@@ -1,0 +1,254 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body, html {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-container h2 {
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.input-group label {
+    margin-bottom: 0.5rem;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #6e8efb;
+}
+
+.login-btn {
+    background: #6e8efb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+.login-btn:hover {
+    background: #a777e3;
+}
+
+.message {
+    margin-top: 1rem;
+    color: #d9534f;
+    font-size: 0.9rem;
+    display: none;
+}
+
+.admin-panel {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.admin-panel button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1050;
+}
+
+.modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    z-index: 1051;
+    width: 90%;
+    max-width: 600px;
+}
+
+.admin-panel-title {
+    margin-top: 20px;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.large-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.close {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 24px;
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+
+button {
+    background-color: #5c67f2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+button:hover {
+    background-color: #4a54e1;
+}
+
+input, select {
+    padding: 8px;
+    margin: 5px 0;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+@media screen and (max-width: 600px) {
+    th, td {
+        padding: 15px;
+        font-size: 14px;
+    }
+}
+
+.chat-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.chat-button:hover {
+    background-color: #0056b3;
+}
